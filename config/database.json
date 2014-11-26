@@ -1,0 +1,9 @@
+{
+  "dbName": "pantry-pal",
+  "dbUser": "root" ,
+  "dbPassword": "whycanti",
+  "connectionInfo": {
+    "dialect": "sqlite",
+    "storage": ":memory:"
+  }
+}
