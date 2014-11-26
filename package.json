@@ -1,0 +1,37 @@
+{
+  "name": "pantry-pal",
+  "version": "0.0.1",
+  "private": true,
+  "directories": {
+    "doc": "doc",
+    "test": "tests"
+  },
+  "dependencies": {
+    "body-parser": "~1.9.2",
+    "compression": ">= 0.0.0",
+    "express": "~4.9.x",
+    "mysql": "^2.5.3",
+    "newrelic": "~1.12.2",
+    "pg": "~2.11.1",
+    "sequelize": "~2.0.0-rc2",
+    "sequelize-cli": "^0.3.3",
+    "sqlite3": "~3.0.2",
+    "cors": "~2.5.1",
+    "sequelize-json-api": "learntracker/sequelize-json-api"
+  },
+  "scripts": {
+    "start": "node pantry-pal-api.js"
+  },
+  "repository": "https://github.com/pantry-pal/pantry-pal-api",
+  "engines": {
+    "node": ">= 0.10.X"
+  },
+  "author": "CSC 4402",
+  "license": "MIT",
+  "devDependencies": {
+    "body-parser": "^1.2.0",
+    "express": "^4.8.5",
+    "glob": "^4.0.5",
+    "newrelic": "~1.12.2"
+  }
+}

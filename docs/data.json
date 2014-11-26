@@ -1,0 +1,275 @@
+{
+    "project": {
+        "name": "Pantry Pal",
+        "version": "1.0"
+    },
+    "files": {
+        "config/environment.js": {
+            "name": "config/environment.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "models/index.js": {
+            "name": "models/index.js",
+            "modules": {},
+            "classes": {
+                "Sequelize": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "models/ingredient.js": {
+            "name": "models/ingredient.js",
+            "modules": {},
+            "classes": {
+                "ingredient": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "newrelic.js": {
+            "name": "newrelic.js",
+            "modules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "pantry-pal-api.js": {
+            "name": "pantry-pal-api.js",
+            "modules": {
+                "pantry-pal-api": 1
+            },
+            "classes": {
+                "pantry-pal-api": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "pantry-pal-api": {
+            "name": "pantry-pal-api",
+            "submodules": {},
+            "classes": {
+                "Sequelize": 1,
+                "ingredient": 1,
+                "pantry-pal-api": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "main",
+            "file": "pantry-pal-api.js",
+            "line": 1,
+            "description": "Pantry Pal restful api",
+            "itemtype": "main"
+        }
+    },
+    "classes": {
+        "Sequelize": {
+            "name": "Sequelize",
+            "shortname": "Sequelize",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "pantry-pal-api",
+            "file": "models/index.js",
+            "line": 1,
+            "description": "Sequelize configuration",
+            "is_constructor": 1
+        },
+        "ingredient": {
+            "name": "ingredient",
+            "shortname": "ingredient",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "pantry-pal-api",
+            "file": "models/ingredient.js",
+            "line": 1,
+            "description": "Model for an ingredient.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "name",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "description",
+                    "description": "",
+                    "type": "Text"
+                }
+            ]
+        },
+        "pantry-pal-api": {
+            "name": "pantry-pal-api",
+            "shortname": "pantry-pal-api",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "pantry-pal-api",
+            "namespace": "",
+            "file": "pantry-pal-api.js",
+            "line": 1,
+            "description": "Pantry Pal restful api",
+            "mainName": "pantry-pal-api",
+            "tag": "main",
+            "itemtype": "main",
+            "_main": true
+        }
+    },
+    "classitems": [
+        {
+            "file": "config/environment.js",
+            "line": 1,
+            "description": "jshint node: true",
+            "itemtype": "method",
+            "name": "exports",
+            "params": [
+                {
+                    "name": "environment",
+                    "description": ""
+                }
+            ],
+            "return": {
+                "description": "ENV"
+            },
+            "class": "Sequelize"
+        },
+        {
+            "file": "models/index.js",
+            "line": 8,
+            "description": "Sets db info using pantry-pal-api/config/database.json,\nsets up configured models, and other sequelized-specific configuration",
+            "itemtype": "method",
+            "name": "Constructor",
+            "class": "Sequelize"
+        },
+        {
+            "file": "models/ingredient.js",
+            "line": 10,
+            "description": "Constructs a new ingredient",
+            "itemtype": "method",
+            "name": "Constructor",
+            "class": "ingredient"
+        },
+        {
+            "file": "newrelic.js",
+            "line": 1,
+            "description": "New Relic agent configuration.\n\nSee lib/config.defaults.js in the agent distribution for a more complete\ndescription of configuration variables and their potential values.",
+            "class": "pantry-pal-api"
+        },
+        {
+            "file": "newrelic.js",
+            "line": 8,
+            "description": "Array of application names.",
+            "class": "pantry-pal-api"
+        },
+        {
+            "file": "newrelic.js",
+            "line": 12,
+            "description": "Your New Relic license key.",
+            "class": "pantry-pal-api"
+        },
+        {
+            "file": "newrelic.js",
+            "line": 17,
+            "description": "Level at which to log. 'trace' is most useful to New Relic when diagnosing\nissues with the agent, 'info' and higher will impose the least overhead on\nproduction applications.",
+            "class": "pantry-pal-api"
+        },
+        {
+            "file": "pantry-pal-api.js",
+            "line": 24,
+            "description": "Generates API routes for all of the ./models that are allowed in config var",
+            "itemtype": "method",
+            "name": "generateApiRoutes",
+            "params": [
+                {
+                    "name": "sequelizeJsonApiConfig",
+                    "description": "",
+                    "type": "Json"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "pantry-pal-api",
+            "module": "pantry-pal-api"
+        },
+        {
+            "file": "pantry-pal-api.js",
+            "line": 40,
+            "description": "Configure Express server to use Heroku port or 5000, use gzip compression, automatgickly\nparse json requests to get  js object, and accept url-encodingsds",
+            "itemtype": "method",
+            "name": "setupExpress",
+            "params": [
+                {
+                    "name": "express",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "pantry-pal-api",
+            "module": "pantry-pal-api"
+        },
+        {
+            "file": "pantry-pal-api.js",
+            "line": 63,
+            "description": "Tell express how to serve routes for .com/, and serve a restful api interface\nof all the models configured in ./models as .com/v1",
+            "itemtype": "method",
+            "name": "setupRouting",
+            "params": [
+                {
+                    "name": "express",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "pantry-pal-api",
+            "module": "pantry-pal-api"
+        },
+        {
+            "file": "pantry-pal-api.js",
+            "line": 79,
+            "description": "Runs pantry-pal-api by setting up express, building api routes, and seting up\nthe database to start serving Pantry Pal and all it's goodness",
+            "itemtype": "method",
+            "name": "run",
+            "return": {
+                "description": "void"
+            },
+            "class": "pantry-pal-api",
+            "module": "pantry-pal-api"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "Missing item type\nNew Relic agent configuration.\n\nSee lib/config.defaults.js in the agent distribution for a more complete\ndescription of configuration variables and their potential values.",
+            "line": " newrelic.js:1"
+        },
+        {
+            "message": "Missing item type\nArray of application names.",
+            "line": " newrelic.js:8"
+        },
+        {
+            "message": "Missing item type\nYour New Relic license key.",
+            "line": " newrelic.js:12"
+        },
+        {
+            "message": "Missing item type\nLevel at which to log. 'trace' is most useful to New Relic when diagnosing\nissues with the agent, 'info' and higher will impose the least overhead on\nproduction applications.",
+            "line": " newrelic.js:17"
+        }
+    ]
+}

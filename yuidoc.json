@@ -1,0 +1,10 @@
+{
+  "name": "Pantry Pal",
+  "version": "1.0",
+  "options": {
+  	"paths": [ "./"],
+    "exclude": "node_modules,public,tmp",
+    "outdir": "./docs",
+    "extension": ".js"
+  }
+}
