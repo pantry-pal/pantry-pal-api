@@ -28,7 +28,12 @@ if (!global.hasOwnProperty('db')) {
     })
   } else if (process.env.CLEARDB_DATABASE_URL) {
     // the application is executed on Heroku ... use the postgres database
-    var match = process.env.CLEARDB_DATABASE_URL.match(/mysql:\/\/([^:]+):([^@]+)@([^\/]+)\/(.+)/)
+    var match = process.env.CLEARDB_DATABASE_URL.match(/mysql:\/\/([^:]+):([^@]+)@([^\/]+)\/([^?]+)?(.+)/)
+
+    var user = match[1],
+        password = match[2],
+        hostname= match[3],
+        table_name = match[4]
 
     sequelize = new Sequelize(match[4], match[1], match[2], {
       dialect:  'mysql',
