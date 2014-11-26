@@ -29,6 +29,15 @@
             "fors": {},
             "namespaces": {}
         },
+        "models/user.js": {
+            "name": "models/user.js",
+            "modules": {},
+            "classes": {
+                "user": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "newrelic.js": {
             "name": "newrelic.js",
             "modules": {},
@@ -39,10 +48,12 @@
         "pantry-pal-api.js": {
             "name": "pantry-pal-api.js",
             "modules": {
-                "pantry-pal-api": 1
+                "pantry-pal-api": 1,
+                "Routes": 1
             },
             "classes": {
-                "pantry-pal-api": 1
+                "pantry-pal-api": 1,
+                "Routes": 1
             },
             "fors": {},
             "namespaces": {}
@@ -55,13 +66,28 @@
             "classes": {
                 "Sequelize": 1,
                 "ingredient": 1,
-                "pantry-pal-api": 1
+                "user": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "main",
+            "file": "models/user.js",
+            "line": 1,
+            "description": "Pantry Pal restful api",
+            "itemtype": "main"
+        },
+        "Routes": {
+            "name": "Routes",
+            "submodules": {},
+            "classes": {
+                "pantry-pal-api": 1,
+                "Routes": 1
             },
             "fors": {},
             "namespaces": {},
             "tag": "main",
             "file": "pantry-pal-api.js",
-            "line": 1,
+            "line": 154,
             "description": "Pantry Pal restful api",
             "itemtype": "main"
         }
@@ -107,6 +133,47 @@
                 }
             ]
         },
+        "user": {
+            "name": "user",
+            "shortname": "user",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "pantry-pal-api",
+            "file": "models/user.js",
+            "line": 1,
+            "description": "Model for a user.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "email",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "password",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "fname",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "lname",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "groups",
+                    "description": "",
+                    "type": "String"
+                }
+            ]
+        },
         "pantry-pal-api": {
             "name": "pantry-pal-api",
             "shortname": "pantry-pal-api",
@@ -115,12 +182,30 @@
             "extensions": [],
             "plugin_for": [],
             "extension_for": [],
-            "module": "pantry-pal-api",
+            "module": "Routes",
             "namespace": "",
             "file": "pantry-pal-api.js",
             "line": 1,
             "description": "Pantry Pal restful api",
             "mainName": "pantry-pal-api",
+            "tag": "main",
+            "itemtype": "main",
+            "_main": true
+        },
+        "Routes": {
+            "name": "Routes",
+            "shortname": "Routes",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Routes",
+            "namespace": "",
+            "file": "pantry-pal-api.js",
+            "line": 154,
+            "description": "Pantry Pal restful api",
+            "mainName": "Routes",
             "tag": "main",
             "itemtype": "main",
             "_main": true
@@ -161,6 +246,14 @@
             "class": "ingredient"
         },
         {
+            "file": "models/user.js",
+            "line": 13,
+            "description": "Constructs a new user",
+            "itemtype": "method",
+            "name": "Constructor",
+            "class": "user"
+        },
+        {
             "file": "newrelic.js",
             "line": 1,
             "description": "New Relic agent configuration.\n\nSee lib/config.defaults.js in the agent distribution for a more complete\ndescription of configuration variables and their potential values.",
@@ -186,26 +279,7 @@
         },
         {
             "file": "pantry-pal-api.js",
-            "line": 24,
-            "description": "Generates API routes for all of the ./models that are allowed in config var",
-            "itemtype": "method",
-            "name": "generateApiRoutes",
-            "params": [
-                {
-                    "name": "sequelizeJsonApiConfig",
-                    "description": "",
-                    "type": "Json"
-                }
-            ],
-            "return": {
-                "description": "void"
-            },
-            "class": "pantry-pal-api",
-            "module": "pantry-pal-api"
-        },
-        {
-            "file": "pantry-pal-api.js",
-            "line": 40,
+            "line": 62,
             "description": "Configure Express server to use Heroku port or 5000, use gzip compression, automatgickly\nparse json requests to get  js object, and accept url-encodingsds",
             "itemtype": "method",
             "name": "setupExpress",
@@ -224,7 +298,26 @@
         },
         {
             "file": "pantry-pal-api.js",
-            "line": 63,
+            "line": 92,
+            "description": "Generates API routes for all of the ./models that are allowed in config var\nUses .com/v1/:resource/:id for GET, POST, PUT, DELETE",
+            "itemtype": "method",
+            "name": "generateApiRoutes",
+            "params": [
+                {
+                    "name": "sequelizeJsonApiConfig",
+                    "description": "",
+                    "type": "Json"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "pantry-pal-api",
+            "module": "pantry-pal-api"
+        },
+        {
+            "file": "pantry-pal-api.js",
+            "line": 109,
             "description": "Tell express how to serve routes for .com/, and serve a restful api interface\nof all the models configured in ./models as .com/v1",
             "itemtype": "method",
             "name": "setupRouting",
@@ -243,7 +336,7 @@
         },
         {
             "file": "pantry-pal-api.js",
-            "line": 79,
+            "line": 125,
             "description": "Runs pantry-pal-api by setting up express, building api routes, and seting up\nthe database to start serving Pantry Pal and all it's goodness",
             "itemtype": "method",
             "name": "run",
@@ -252,6 +345,82 @@
             },
             "class": "pantry-pal-api",
             "module": "pantry-pal-api"
+        },
+        {
+            "file": "pantry-pal-api.js",
+            "line": 163,
+            "description": "Route to create a user",
+            "itemtype": "method",
+            "name": "route-user-create",
+            "params": [
+                {
+                    "name": "/v2/user",
+                    "description": "",
+                    "type": "POST"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "Routes",
+            "module": "Routes"
+        },
+        {
+            "file": "pantry-pal-api.js",
+            "line": 198,
+            "description": "Route to update a user",
+            "itemtype": "method",
+            "name": "route-user-update",
+            "params": [
+                {
+                    "name": "/v2/user",
+                    "description": "",
+                    "type": "PUT"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "Routes",
+            "module": "Routes"
+        },
+        {
+            "file": "pantry-pal-api.js",
+            "line": 248,
+            "description": "Route to authenticate a user",
+            "itemtype": "method",
+            "name": "route-user-auth",
+            "params": [
+                {
+                    "name": "/v2/user",
+                    "description": "",
+                    "type": "POST"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "Routes",
+            "module": "Routes"
+        },
+        {
+            "file": "pantry-pal-api.js",
+            "line": 261,
+            "description": "Route to show logged in user",
+            "itemtype": "method",
+            "name": "route-user-show",
+            "params": [
+                {
+                    "name": "/v2/user",
+                    "description": "",
+                    "type": "GET"
+                }
+            ],
+            "return": {
+                "description": "void"
+            },
+            "class": "Routes",
+            "module": "Routes"
         }
     ],
     "warnings": [

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>models/index.js - Pantry Pal</title>
+    <title>models/user.js - Pantry Pal</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -94,83 +94,38 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1 class="file-heading">File: models/index.js</h1>
+                        <h1 class="file-heading">File: models/user.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
 /**
- * Sequelize configuration
+ * Model for a user.
  *
- * @class Sequelize
+ * @class user
  * @constructor
+ * @param {String} email
+ * @param {String} password
+ * @param {String} fname
+ * @param {String} lname
+ * @param {String} groups
  */
 
  /**
- * Sets db info using pantry-pal-api/config/database.json,
- * sets up configured models, and other sequelized-specific configuration
+ * Constructs a new user
  *
  * @method Constructor
+ *
  */
-if (!global.hasOwnProperty(&#x27;db&#x27;)) {
-  var Sequelize = require(&#x27;sequelize&#x27;)
-    , sequelize = null
-
-  if (process.env.DATABASE_URL) {
-    // the application is executed on Heroku ... use the postgres database
-    var match = process.env.DATABASE_URL.match(/postgres:\/\/([^:]+):([^@]+)@([^:]+):(\d+)\/(.+)/)
-
-    sequelize = new Sequelize(match[5], match[1], match[2], {
-      dialect:  &#x27;postgres&#x27;,
-      protocol: &#x27;postgres&#x27;,
-      port:     match[4],
-      host:     match[3],
-      logging:  false //false
-    })
-  } else if (process.env.CLEARDB_DATABASE_URL) {
-    // the application is executed on Heroku ... use the postgres database
-    var match = process.env.CLEARDB_DATABASE_URL.match(/mysql:\/\/([^:]+):([^@]+)@([^\/]+)\/([^?]+)?(.+)/)
-
-    var user = match[1],
-        password = match[2],
-        hostname= match[3],
-        table_name = match[4]
-
-    sequelize = new Sequelize(match[4], match[1], match[2], {
-      dialect:  &#x27;mysql&#x27;,
-      protocol: &#x27;mysql&#x27;,
-      host:     match[3],
-      logging:  false //false
-    })
-  } else {
-    var fs = require(&#x27;fs&#x27;);
-    var dbInfo = JSON.parse(fs.readFileSync(&#x27;./config/database.json&#x27;, &#x27;utf8&#x27;));
-    // the application is executed on the local machine ... use mysql
-    sequelize = new Sequelize(dbInfo.dbName, dbInfo.dbUser , dbInfo.dbPassword, {
-      dialect:  dbInfo.connectionInfo.dialect,
-      protocol: dbInfo.connectionInfo.protocol,
-      port:     dbInfo.connectionInfo.port,
-      host:    dbInfo.connectionInfo.host,
-      logging:  dbInfo.connectionInfo.logging
-    }
-  );
-  }
-
-  global.db = {
-    Sequelize: Sequelize,
-    sequelize: sequelize,
-    ingredient:      sequelize.import(__dirname + &#x27;/ingredient&#x27;),
-    user:      sequelize.import(__dirname + &#x27;/user&#x27;)
-    // add your other models here
-  }
-
-
-  /*
-    Associations can be defined here. E.g. like this:
-    global.db.User.hasMany(global.db.SomethingElse)
-  */
+module.exports = function(sequelize, DataTypes){
+  return sequelize.define(&#x27;user&#x27;, {
+    email: {type: DataTypes.STRING, unique: true, allowNull: false},
+    password: {type: DataTypes.STRING, unique: false, allowNull: false},
+    fname: {type: DataTypes.STRING, unique: false, allowNull: true},
+    lname: {type: DataTypes.STRING, unique: false, allowNull: true},
+    groups: {type: DataTypes.TEXT, allowNull: true}
+    // Need other models before setting up relations: http://sequelizejs.com/docs/1.7.8/associations#one-to-one
+  })
 }
-
-module.exports = global.db
 
     </pre>
 </div>

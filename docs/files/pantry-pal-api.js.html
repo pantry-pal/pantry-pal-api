@@ -45,13 +45,19 @@
             
                 <li><a href="../classes/pantry-pal-api.html">pantry-pal-api</a></li>
             
+                <li><a href="../classes/Routes.html">Routes</a></li>
+            
                 <li><a href="../classes/Sequelize.html">Sequelize</a></li>
+            
+                <li><a href="../classes/user.html">user</a></li>
             
             </ul>
 
             <ul id="api-modules" class="apis modules">
             
                 <li><a href="../modules/pantry-pal-api.html">pantry-pal-api</a></li>
+            
+                <li><a href="../modules/Routes.html">Routes</a></li>
             
             </ul>
         </div>
@@ -107,29 +113,51 @@ require(&#x27;newrelic&#x27;);
 // Import the npm modules we need to use
 var express = require(&#x27;express&#x27;), // Express is the server provider
   http = require(&#x27;http&#x27;), // node&#x27;s http system
-  db = require(&#x27;./models&#x27;); // Sequelize!
+  db = require(&#x27;./models&#x27;), // Sequelize!
+  sha256 = require(&#x27;sha256&#x27;);
+
+var passport = require(&#x27;passport&#x27;)
+  , LocalStrategy = require(&#x27;passport-local&#x27;).Strategy;
+
+passport.use(new LocalStrategy({
+    usernameField: &#x27;email&#x27;,
+    passwordField: &#x27;password&#x27;
+  },
+  function(email, password, done) {
+    if(password)
+      password = sha256(password);
+    db.user.find({ where: {&#x27;email&#x27;: email, &#x27;password&#x27;: password} }).success(function(user) {
+      // project will be the first entry of the Projects table with the title &#x27;aProject&#x27; || null
+      return done(null, user);
+    }).error(function(error){
+      return done(null, false, error);
+    })
+    //return done(null, false, { message: &#x27;No idea, bro.&#x27; });
+  }
+));
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(id, done) {
+  db.user.find(id).success(function(user) {
+    // project will be the first entry of the Projects table with the title &#x27;aProject&#x27; || null
+    return done(null, user);
+  }).error(function(error){
+    return done(null, false, error);
+  })
+});
 
 var config = {
   sequelizeJsonApi: {
-    endpoint: &#x27;/api&#x27;, // needed for href calculation
+      endpoint: &#x27;/v1&#x27;, // the api endpoint, this is used to build resource URLs
+      allowed: [&#x27;users&#x27;, &#x27;ingredients&#x27;], // a list of models to expose on the api, default so all if none specified... user should eventually be taken out
+      allowOrigin: &#x27;*&#x27;, // the value for the Access-Control-Allow-Origin header to support CORS
+      transport: &#x27;ember-restadapter&#x27;, // the transport format to use for the api, json-api or ember-restadapter
+      idValidator: function(id){return true;} //a method to validate ids, default is &#x60;validator.isInt&#x60;
   }
 };
-
-/**
- * Generates API routes for all of the ./models that are allowed in config var
- *
- * @method generateApiRoutes
- * @param {Json} sequelizeJsonApiConfig
- * @return void
- */
-var generateApiRoutes = function(sequelizeJsonApiConfig){
-  // Configure the api
-  var apiRoutes = api = require(&#x27;sequelize-json-api&#x27;); // api mod
-  apiRoutes = api(db.sequelize, sequelizeJsonApiConfig);
-  //Generate routes for models in config
-  apiRoutes.initialize();
-  return apiRoutes;
-}
 
 /**
  * Configure Express server to use Heroku port or 5000, use gzip compression, automatgickly
@@ -143,15 +171,39 @@ var setupExpress = function(expressApp){
   var compress = require(&#x27;compression&#x27;), // this compresses stuff
       bodyParser = require(&#x27;body-parser&#x27;), // So we can parse the various formats we will recieve
       cors = require(&#x27;cors&#x27;);
+  var cookieParser = require(&#x27;cookie-parser&#x27;)
+  var expressSession = require(&#x27;express-session&#x27;);
+
   // Configure express
   expressApp.set(&#x27;port&#x27;, (process.env.PORT || 5000)); // Port to use, process.env.PORT is set by heroku
-  expressApp.use(compress()); // Tells Express to use gzip encryption
+  expressApp.use(cookieParser());
   expressApp.use( bodyParser.json() ); // JSON-encoded body support
   expressApp.use(bodyParser.urlencoded({     // to support URL-encoded bodies
     extended: true
   }));
+  expressApp.use(expressSession({secret:&#x27;somesecrettokenhere&#x27;}));
+  expressApp.use(passport.initialize());
+  expressApp.use(passport.session());
   expressApp.use( cors() ); // cors enables cross site scripting
+  expressApp.use(compress()); // Tells Express to use gzip encryption
   return expressApp;
+}
+
+/**
+ * Generates API routes for all of the ./models that are allowed in config var
+ * Uses .com/v1/:resource/:id for GET, POST, PUT, DELETE
+ *
+ * @method generateApiRoutes
+ * @param {Json} sequelizeJsonApiConfig
+ * @return void
+ */
+var generateApiRoutes = function(sequelizeJsonApiConfig){
+  // Configure the api
+  var apiRoutes = api = require(&#x27;sequelize-json-api&#x27;); // api mod
+  apiRoutes = api(db.sequelize, sequelizeJsonApiConfig);
+  //Generate routes for models in config
+  apiRoutes.initialize();
+  return apiRoutes;
 }
 
 /**
@@ -182,6 +234,8 @@ var run = function(){
 
   server = setupExpress(server);
 
+  server = setupExplicitApiRoutes(server);
+
   var apiRoutes = generateApiRoutes(config.sequelizeJsonApi);
   server = setupRouting(server, apiRoutes);
 
@@ -196,6 +250,132 @@ var run = function(){
     }
   });
 };
+
+/**
+ * Pantry Pal restful api
+ *
+ * @module Routes
+ * @main Routes
+ * @class Routes
+ */
+var setupExplicitApiRoutes = function(expressApp){
+
+  /**
+   * Route to create a user
+   *
+   * @method route-user-create
+   * @param {POST} /v2/user
+   * @return void
+   */
+  expressApp.post(&#x27;/v2/user&#x27;, function(req, res) {
+      var email = req.param(&#x27;email&#x27;, null),
+          password = req.param(&#x27;password&#x27;, null),
+          fname = req.param(&#x27;fname&#x27;, null),
+          lname = req.param(&#x27;lname&#x27;, null);
+
+      if(password){
+        password = sha256(password);
+      }
+
+      // ...
+      db.user
+          .build({
+            &#x27;email&#x27;: email,
+            &#x27;password&#x27;: password,
+            &#x27;fname&#x27;: fname,
+            &#x27;lname&#x27;: lname,
+            })
+          .save()
+          .success(function(savedUser) {
+            res.send(savedUser);
+            // you can now access the currently saved task with the variable anotherTask... nice!
+          }).error(function(error) {
+            res.send(error);
+            // Ooops, do some error-handling
+          })
+  });
+
+  /**
+   * Route to update a user
+   *
+   * @method route-user-update
+   * @param {PUT} /v2/user
+   * @return void
+   */
+  expressApp.put(&#x27;/v2/user&#x27;, function(req, res) {
+    if (req.session.passport.user) {
+      var email = req.param(&#x27;email&#x27;, null),
+          password = req.param(&#x27;password&#x27;, null),
+          fname = req.param(&#x27;fname&#x27;, null),
+          lname = req.param(&#x27;lname&#x27;, null);
+
+      if(password){
+        password = sha256(password);
+      }
+
+      var toUpdate = {};
+
+      if(email)
+        toUpdate.email = email;
+      if(password)
+        toUpdate.password = password;
+      if(fname)
+        toUpdate.fname = fname;
+      if(lname)
+        toUpdate.lname = lname;
+
+      db.user.find(req.session.passport.user.id).success(function(user) {
+        user.updateAttributes(toUpdate)
+            .success(function(savedUser) {
+              req.session.passport.user = savedUser;
+              res.send(savedUser);
+              // you can now access the currently saved task with the variable anotherTask... nice!
+            }).error(function(error) {
+              res.send(error);
+              // Ooops, do some error-handling
+            })
+      }).error(function(error){
+        res.send(&#x27;no user&#x27;);
+      })
+      //res.send(req.session.passport.user);
+    }else{
+      res.send(&#x27;no auth&#x27;);
+    }
+
+  });
+
+
+  /**
+   * Route to authenticate a user
+   *
+   * @method route-user-auth
+   * @param {POST} /v2/user
+   * @return void
+   */
+  expressApp.post(&#x27;/v2/user/auth&#x27;,
+    passport.authenticate(&#x27;local&#x27;, { successRedirect: &#x27;/v2/user&#x27;,
+                                     failureRedirect: &#x27;/v1/users&#x27;,
+                                     failureFlash: false })
+  );
+
+  /**
+   * Route to show logged in user
+   *
+   * @method route-user-show
+   * @param {GET} /v2/user
+   * @return void
+   */
+  expressApp.get(&#x27;/v2/user&#x27;,
+    function(req, res, next) {
+        if (req.session.passport.user) {
+          res.send(req.session.passport.user);
+        }else{
+          res.send(&#x27;error&#x27;);
+        }
+  });
+
+  return expressApp;
+}
 
 // run restful api with documentation
 run();

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>pantry-pal-api - Pantry Pal</title>
+    <title>Routes - Pantry Pal</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -94,7 +94,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>pantry-pal-api Class</h1>
+                        <h1>Routes Class</h1>
 <div class="box meta">
     
 
@@ -102,7 +102,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/pantry-pal-api.js.html#l1"><code>pantry-pal-api.js:1</code></a>
+            Defined in: <a href="../files/pantry-pal-api.js.html#l154"><code>pantry-pal-api.js:154</code></a>
         </div>
     
 
@@ -147,28 +147,28 @@
                     <ul class="index-list methods">
                         
                             <li class="index-item method">
-                                <a href="#method_generateApiRoutes">generateApiRoutes</a>
+                                <a href="#method_route-user-auth">route-user-auth</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_run">run</a>
+                                <a href="#method_route-user-create">route-user-create</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_setupExpress">setupExpress</a>
+                                <a href="#method_route-user-show">route-user-show</a>
 
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_setupRouting">setupRouting</a>
+                                <a href="#method_route-user-update">route-user-update</a>
 
                                 
                                 
@@ -190,8 +190,8 @@
                 <h2 class="off-left">Methods</h2>
 
                 
-                    <div id="method_generateApiRoutes" class="method item">
-    <h3 class="name"><code>generateApiRoutes</code></h3>
+                    <div id="method_route-user-auth" class="method item">
+    <h3 class="name"><code>route-user-auth</code></h3>
 
     
         <div class="args">
@@ -199,7 +199,7 @@
             
                 <li class="arg">
                     
-                        <code>sequelizeJsonApiConfig</code>
+                        <code>/v2/user</code>
                     
                 </li>
             
@@ -229,8 +229,6 @@
         
             
                 
-                    <p>Provided by the <a href="../modules/pantry-pal-api.html">pantry-pal-api</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -238,7 +236,7 @@
             
         
         
-        <a href="../files/pantry-pal-api.js.html#l92"><code>pantry-pal-api.js:92</code></a>
+        <a href="../files/pantry-pal-api.js.html#l248"><code>pantry-pal-api.js:248</code></a>
         
         </p>
 
@@ -249,8 +247,7 @@
     </div>
 
     <div class="description">
-        <p>Generates API routes for all of the ./models that are allowed in config var
-Uses .com/v1/:resource/:id for GET, POST, PUT, DELETE</p>
+        <p>Route to authenticate a user</p>
 
     </div>
 
@@ -262,8 +259,8 @@ Uses .com/v1/:resource/:id for GET, POST, PUT, DELETE</p>
             
                 <li class="param">
                     
-                        <code class="param-name">sequelizeJsonApiConfig</code>
-                        <span class="type">Json</span>
+                        <code class="param-name">/v2/user</code>
+                        <span class="type">POST</span>
                     
 
                     
@@ -297,82 +294,8 @@ Uses .com/v1/:resource/:id for GET, POST, PUT, DELETE</p>
 </div>
 
                 
-                    <div id="method_run" class="method item">
-    <h3 class="name"><code>run</code></h3>
-
-    
-        <span class="paren">()</span>
-    
-
-    
-        <span class="returns-inline">
-            <span class="type"></span>
-        </span>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                    <p>Provided by the <a href="../modules/pantry-pal-api.html">pantry-pal-api</a> module.</p>
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="../files/pantry-pal-api.js.html#l125"><code>pantry-pal-api.js:125</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>Runs pantry-pal-api by setting up express, building api routes, and seting up
-the database to start serving Pantry Pal and all it&#39;s goodness</p>
-
-    </div>
-
-    
-
-    
-        <div class="returns">
-            <h4>Returns:</h4>
-
-            <div class="returns-description">
-                
-                    
-                    <p>void</p>
-
-                
-            </div>
-        </div>
-    
-
-    
-</div>
-
-                
-                    <div id="method_setupExpress" class="method item">
-    <h3 class="name"><code>setupExpress</code></h3>
+                    <div id="method_route-user-create" class="method item">
+    <h3 class="name"><code>route-user-create</code></h3>
 
     
         <div class="args">
@@ -380,7 +303,7 @@ the database to start serving Pantry Pal and all it&#39;s goodness</p>
             
                 <li class="arg">
                     
-                        <code>express</code>
+                        <code>/v2/user</code>
                     
                 </li>
             
@@ -410,8 +333,6 @@ the database to start serving Pantry Pal and all it&#39;s goodness</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/pantry-pal-api.html">pantry-pal-api</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -419,7 +340,7 @@ the database to start serving Pantry Pal and all it&#39;s goodness</p>
             
         
         
-        <a href="../files/pantry-pal-api.js.html#l62"><code>pantry-pal-api.js:62</code></a>
+        <a href="../files/pantry-pal-api.js.html#l163"><code>pantry-pal-api.js:163</code></a>
         
         </p>
 
@@ -430,8 +351,7 @@ the database to start serving Pantry Pal and all it&#39;s goodness</p>
     </div>
 
     <div class="description">
-        <p>Configure Express server to use Heroku port or 5000, use gzip compression, automatgickly
-parse json requests to get  js object, and accept url-encodingsds</p>
+        <p>Route to create a user</p>
 
     </div>
 
@@ -443,8 +363,8 @@ parse json requests to get  js object, and accept url-encodingsds</p>
             
                 <li class="param">
                     
-                        <code class="param-name">express</code>
-                        <span class="type">Object</span>
+                        <code class="param-name">/v2/user</code>
+                        <span class="type">POST</span>
                     
 
                     
@@ -478,8 +398,8 @@ parse json requests to get  js object, and accept url-encodingsds</p>
 </div>
 
                 
-                    <div id="method_setupRouting" class="method item">
-    <h3 class="name"><code>setupRouting</code></h3>
+                    <div id="method_route-user-show" class="method item">
+    <h3 class="name"><code>route-user-show</code></h3>
 
     
         <div class="args">
@@ -487,7 +407,7 @@ parse json requests to get  js object, and accept url-encodingsds</p>
             
                 <li class="arg">
                     
-                        <code>express</code>
+                        <code>/v2/user</code>
                     
                 </li>
             
@@ -517,8 +437,6 @@ parse json requests to get  js object, and accept url-encodingsds</p>
         
             
                 
-                    <p>Provided by the <a href="../modules/pantry-pal-api.html">pantry-pal-api</a> module.</p>
-                
                 <p>
                 
                 Defined in
@@ -526,7 +444,7 @@ parse json requests to get  js object, and accept url-encodingsds</p>
             
         
         
-        <a href="../files/pantry-pal-api.js.html#l109"><code>pantry-pal-api.js:109</code></a>
+        <a href="../files/pantry-pal-api.js.html#l261"><code>pantry-pal-api.js:261</code></a>
         
         </p>
 
@@ -537,8 +455,7 @@ parse json requests to get  js object, and accept url-encodingsds</p>
     </div>
 
     <div class="description">
-        <p>Tell express how to serve routes for .com/, and serve a restful api interface
-of all the models configured in ./models as .com/v1</p>
+        <p>Route to show logged in user</p>
 
     </div>
 
@@ -550,8 +467,112 @@ of all the models configured in ./models as .com/v1</p>
             
                 <li class="param">
                     
-                        <code class="param-name">express</code>
-                        <span class="type">Object</span>
+                        <code class="param-name">/v2/user</code>
+                        <span class="type">GET</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                    <p>void</p>
+
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_route-user-update" class="method item">
+    <h3 class="name"><code>route-user-update</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>/v2/user</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="../files/pantry-pal-api.js.html#l198"><code>pantry-pal-api.js:198</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Route to update a user</p>
+
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">/v2/user</code>
+                        <span class="type">PUT</span>
                     
 
                     

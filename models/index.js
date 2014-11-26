@@ -59,6 +59,7 @@ if (!global.hasOwnProperty('db')) {
     Sequelize: Sequelize,
     sequelize: sequelize,
     ingredient:      sequelize.import(__dirname + '/ingredient'),
+    user:      sequelize.import(__dirname + '/user')
     // add your other models here
   }
 
