@@ -1,5 +1,5 @@
-# [pantry-pal-api](https://pantry-pal-api.herokuapp.com/)
-https://pantry-pal-api.herokuapp.com/
+# [pantry-pal-api](http://pantry-pal-api.herokuapp.com/)
+http://pantry-pal-api.herokuapp.com/
 
 This README outlines the details of collaborating on this [Ember](http://emberjs.joefiorini.com/)/[Node.js](http://nodejs.org/)
 application hosted freely by [Heroku](https://heroku.com/).
