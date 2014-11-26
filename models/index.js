@@ -33,7 +33,6 @@ if (!global.hasOwnProperty('db')) {
     sequelize = new Sequelize(match[4], match[1], match[2], {
       dialect:  'mysql',
       protocol: 'mysql',
-      port:     3306,
       host:     match[3],
       logging:  false //false
     })
