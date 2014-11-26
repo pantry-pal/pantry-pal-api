@@ -120,6 +120,21 @@ if (!global.hasOwnProperty(&#x27;db&#x27;)) {
       host:     match[3],
       logging:  false //false
     })
+  } else if (process.env.CLEARDB_DATABASE_URL) {
+    // the application is executed on Heroku ... use the postgres database
+    var match = process.env.CLEARDB_DATABASE_URL.match(/mysql:\/\/([^:]+):([^@]+)@([^\/]+)\/([^?]+)?(.+)/)
+
+    var user = match[1],
+        password = match[2],
+        hostname= match[3],
+        table_name = match[4]
+
+    sequelize = new Sequelize(match[4], match[1], match[2], {
+      dialect:  &#x27;mysql&#x27;,
+      protocol: &#x27;mysql&#x27;,
+      host:     match[3],
+      logging:  false //false
+    })
   } else {
     var fs = require(&#x27;fs&#x27;);
     var dbInfo = JSON.parse(fs.readFileSync(&#x27;./config/database.json&#x27;, &#x27;utf8&#x27;));
