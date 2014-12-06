@@ -175,6 +175,7 @@ JOIN `ingredient` on (`ingredient`.`id` = `recipe_ingredient`.`ingredient`)
 WHERE `recipe`.`user` = 1
 GROUP BY `ingredient`.`id`;
 ```
+![Get the ingredients, amounts required  to prepare all of a user’s recipes one time](http://i.imgur.com/wHpYFiy.jpg)
 
 Get all recipe id, name, descriptions that CAN be prepared using ingredients from an inventory
 ```sql
@@ -185,7 +186,7 @@ FROM `recipe_ingredient`
 JOIN `inventory_ingredient`
 WHERE `recipe_ingredient`.`amount` > `inventory_ingredient`.`amount` AND `recipe_ingredient`.`recipe` = `recipe`.`id` AND `inventory_ingredient`.`inventory` = 1);
 ```
-
+![Get all recipe id, name, descriptions that CAN be prepared using ingredients from an inventory](http://i.imgur.com/PuBlEcJ.jpg)
 
 Get all recipe id, name, descriptions that CANNOT be prepared using ingredients from an inventory
 ```sql
@@ -196,7 +197,7 @@ FROM `recipe_ingredient`
 JOIN `inventory_ingredient`
 WHERE `recipe_ingredient`.`amount` > `inventory_ingredient`.`amount` AND `recipe_ingredient`.`recipe` = `recipe`.`id` AND `inventory_ingredient`.`inventory` = 1);
 ```
-
+![Get all recipe id, name, descriptions that CANNOT be prepared using ingredients from an inventory](http://i.imgur.com/ong1d29.jpg)
 
 Get the ingredients that need to be purchased to prepare a recipe
 ```sql
@@ -208,6 +209,7 @@ JOIN `ingredient` on (`ingredient`.`id` = `recipe_ingredient`.`ingredient`)
 WHERE `recipe`.`id` = 3 AND `inventory_ingredient`.`inventory` = 1 AND `recipe_ingredient`.`amount`-`inventory_ingredient`.`amount` > 0
 GROUP BY `ingredient`.`id`;
 ```
+![Get the ingredients that need to be purchased to prepare a recipe](http://i.imgur.com/mjkjZby.jpg)
 
 Get the ingredients that need to be purchased to prepare ALL a user’s recipes (my user only has 1 recipe that needs ingredients not in my inventory)
 ```sql
@@ -219,7 +221,7 @@ JOIN `ingredient` on (`ingredient`.`id` = `recipe_ingredient`.`ingredient`)
 WHERE `recipe`.`user` = 1 AND `inventory_ingredient`.`inventory` = 1 AND `recipe_ingredient`.`amount`-`inventory_ingredient`.`amount` > 0
 GROUP BY `ingredient`.`id`;
 ```
-
+![Get the ingredients that need to be purchased to prepare ALL a user’s recipes (my user only has 1 recipe that needs ingredients not in my inventory)](http://i.imgur.com/ArUgyzw.jpg)
 
 
 Simple List Entity Selects
